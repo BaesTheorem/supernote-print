@@ -1,0 +1,10 @@
+{
+  "device_host": "auto",
+  "device_port": 8089,
+  "device_folder": "Document/Printed",
+  "device_fallback_folders": ["Document", "INBOX"],
+  "drive_folder": "~/My Drive/Supernote/Document/Printed",
+  "notify": true,
+  "notify_command": [],
+  "scan_timeout": 0.5
+}

@@ -1,0 +1,22 @@
+#!/bin/bash
+# Runs the IPP printer that the "Supernote" macOS queue points at.
+# ippeveprinter ships with macOS; it accepts PDF jobs and hands each one to
+# bin/supernote-print-job for delivery.
+set -euo pipefail
+
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PORT="${SUPERNOTE_PRINT_PORT:-8641}"
+SPOOL="${HOME}/Library/Caches/supernote-print/spool"
+mkdir -p "$SPOOL"
+
+# -r off: no Bonjour advert, so the print dialog shows only the real queue
+# (the auto-discovered one would default to Letter and skip the PPD).
+exec /usr/bin/ippeveprinter \
+    -r off \
+    -p "$PORT" \
+    -f application/pdf \
+    -M Ratta -m "Supernote" \
+    -c "$HERE/bin/supernote-print-job" \
+    -d "$SPOOL" \
+    -v \
+    "Supernote"
